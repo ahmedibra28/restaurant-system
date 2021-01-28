@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { FaCheckCircle, FaEdit, FaPlus, FaTimes, FaTrash } from 'react-icons/fa'
 import {
   listUsers,
   deleteUser,
@@ -227,7 +228,7 @@ const UserListScreen = () => {
           data-bs-target='#editUserModal'
         >
           {' '}
-          <i className='fas fa-plus'></i> REGISTER NEW USER
+          <FaPlus /> REGISTER NEW USER
         </button>
       </div>
 
@@ -262,15 +263,9 @@ const UserListScreen = () => {
                     </td>
                     <td>
                       {user.isAdmin ? (
-                        <i
-                          className='fas fa-check'
-                          style={{ color: 'green' }}
-                        ></i>
+                        <FaCheckCircle style={{ color: 'green' }} />
                       ) : (
-                        <i
-                          className='fas fa-times'
-                          style={{ color: 'red' }}
-                        ></i>
+                        <FaTimes style={{ color: 'red' }} />
                       )}
                     </td>
                     <td className='btn-group'>
@@ -280,14 +275,14 @@ const UserListScreen = () => {
                         data-bs-toggle='modal'
                         data-bs-target='#editUserModal'
                       >
-                        <i className='fas fa-edit'></i>
+                        <FaEdit />
                       </button>
 
                       <button
                         className='btn btn-danger btn-sm'
                         onClick={() => deleteHandler(user._id)}
                       >
-                        <i className='fas fa-trash'></i>
+                        <FaTrash />
                       </button>
                     </td>
                   </tr>

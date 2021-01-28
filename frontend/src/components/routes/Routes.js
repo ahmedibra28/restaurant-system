@@ -11,6 +11,7 @@ import NotFound from '../NotFound'
 import PrivateRoute from '../routes/PrivateRoute'
 import AdminPrivateRoute from '../routes/AdminPrivateRoute'
 import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
+import ProductScreen from '../../screens/ProductScreen'
 
 const Routes = () => {
   return (
@@ -21,6 +22,8 @@ const Routes = () => {
           path='/admin/users/logs'
           component={UserLogHistoryScreen}
         />
+        <AdminPrivateRoute path='/admin/product' component={ProductScreen} />
+
         <Route path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
         <AdminPrivateRoute

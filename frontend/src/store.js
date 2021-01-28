@@ -11,6 +11,13 @@ import {
   userUpdateReducer,
   userLogHistoryReducer,
 } from './reducers/userReducers'
+import {
+  productListReducer,
+  productCreateReducer,
+  productUpdateReducer,
+  productDeleteReducer,
+} from './reducers/productReducers'
+import { cartReducer } from './reducers/cartReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -21,13 +28,27 @@ const reducer = combineReducers({
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
   userLogHistory: userLogHistoryReducer,
+
+  productList: productListReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productDelete: productDeleteReducer,
+
+  cart: cartReducer,
 })
+
+const cartItemsFromStorage = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
+  : []
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
 const initialState = {
+  cart: {
+    cartItems: cartItemsFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 }
 const middleware = [thunk]

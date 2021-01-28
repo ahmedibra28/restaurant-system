@@ -1,22 +1,56 @@
 main {
   min-height: 80vh;
 }
-h3 {
-  padding: 1rem 0;
-}
-h1 {
-  font-size: 1.8rem;
-  padding: 1rem 0;
-}
-h2 {
-  font-size: 1.4rem;
-  padding: 0.5rem 0;
-}
-.rating span {
-  margin: 0.1rem;
-}
 
 body,
 .modal-background {
-  background-color: rgb(209, 208, 208);
+  background: -moz-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: -webkit-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
+
+  background-color: #f46c2da6;
+}
+
+.bg-dark {
+  background-color: #f46c2d !important;
+}
+.nav-link {
+  color: #fff !important;
+}
+.nav-link:hover {
+  color: rgb(134, 130, 130) !important;
+}
+
+.bg-menu {
+  border-radius: 40px;
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+.icon-card {
+  transition: 0.5s ease-in-out;
+  border: none;
+}
+.icon-card:hover {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+.focus-box {
+  border: 1px solid #f46c2d;
+}
+.focus-color {
+  color: #f46c2d;
 }

@@ -50,6 +50,11 @@ const Header = () => {
           </span>
           <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
             <li>
+              <Link to='/admin/product' className='dropdown-item'>
+                Product
+              </Link>
+            </li>
+            <li>
               <Link to='/admin/users' className='dropdown-item'>
                 Users
               </Link>
