@@ -9,8 +9,7 @@ const FastFoodScreen = ({
   category,
   addToCartHandler,
   removeFromCurrentHandler,
-  qty,
-  setQty,
+  cartItems,
 }) => {
   const filteredProducts =
     products && products.filter((product) => product.category === category)
@@ -23,7 +22,9 @@ const FastFoodScreen = ({
             <div className='card icon-card'>
               <img
                 src={
-                  product.category === 'Break Fast'
+                  product.image
+                    ? product.image
+                    : product.category === 'Break Fast'
                     ? breakFast
                     : product.category === 'Dinner'
                     ? dinner
@@ -39,17 +40,25 @@ const FastFoodScreen = ({
                 <div className='card-text text-center'>
                   <div className='btn-group'>
                     <span
-                      className='p-1 rounded-pill shadow-none'
+                      className='p-1  rounded-pill shadow-none'
                       style={{ color: '#f46c2d' }}
                     >
                       ${product.price}
                     </span>
 
-                    <FaMinus
-                      className='bg-dark p-2 text-light fs-3 rounded-pill mx-1'
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => removeFromCurrentHandler(product)}
-                    />
+                    {cartItems &&
+                      cartItems.map(
+                        (item) =>
+                          item._id === product._id && (
+                            <FaMinus
+                              key={item._id}
+                              className='bg-dark p-2 text-light fs-3 rounded-pill mx-1'
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => removeFromCurrentHandler(product)}
+                            />
+                          )
+                      )}
+
                     <FaPlus
                       onClick={() => addToCartHandler(product)}
                       className='bg-dark p-2 text-light fs-3 rounded-pill mx-1'

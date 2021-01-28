@@ -43,10 +43,10 @@ body,
 .icon-card {
   transition: 0.5s ease-in-out;
   border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
 }
 .icon-card:hover {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 .focus-box {
   border: 1px solid #f46c2d;

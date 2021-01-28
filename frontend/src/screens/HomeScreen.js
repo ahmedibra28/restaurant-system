@@ -38,6 +38,11 @@ const HomeScreen = () => {
     dispatch(removeFromCart(product))
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(cartItems)
+  }
+
   return (
     <>
       {loading ? (
@@ -46,7 +51,7 @@ const HomeScreen = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <div className='row bg-light  bg-menu'>
+          <div className='row bg-light bg-menu'>
             <div className='col-md-8 p-3'>
               <div className='row'>
                 <div className='col-4'>
@@ -79,10 +84,14 @@ const HomeScreen = () => {
                 products={productFiltered}
                 qty={qty}
                 setQty={setQty}
+                cartItems={cartItems}
               />
             </div>
             <div className='col-md-4 bg-dark py-3 '>
-              <OrderSummaryScreen cartItems={cartItems && cartItems} />
+              <OrderSummaryScreen
+                cartItems={cartItems && cartItems}
+                handleSubmit={handleSubmit}
+              />
             </div>
           </div>
         </>

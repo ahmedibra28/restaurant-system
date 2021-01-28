@@ -180,7 +180,7 @@ const ProductScreen = () => {
 
                     <div className='form-group'>
                       <label htmlFor='category'>Product Category</label>
-                      <input
+                      <select
                         required
                         name='category'
                         onChange={(e) => setCategory(e.target.value)}
@@ -188,7 +188,13 @@ const ProductScreen = () => {
                         value={category}
                         className='form-control '
                         placeholder='Enter product category'
-                      />
+                      >
+                        <option value='' disabled></option>
+                        <option value='Break Fast'>Break Fast</option>
+                        <option value='Dinner'>Dinner</option>
+                        <option value='Hot Drinks'>Hot Drinks</option>
+                        <option value='Cold Drinks'>Cold Drinks</option>
+                      </select>
                     </div>
 
                     <div className='form-group'>

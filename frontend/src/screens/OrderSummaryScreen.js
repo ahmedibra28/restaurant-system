@@ -8,25 +8,17 @@ import {
 import logo from '../images/burger.svg'
 import { useReactToPrint } from 'react-to-print'
 
-const OrderSummaryScreen = ({ cartItems }) => {
+const OrderSummaryScreen = ({ cartItems, handleSubmit }) => {
   const componentRef = useRef()
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: 'Burger Brand',
   })
 
-  // console.log(cartItems)
-  // const prod = []
-  // const items = cartItems && cartItems.filter((item) => prod.push(item._id))
-  // console.log(prod)
-
-  // let results = []
-
-  // items.forEach((item, i) => {
-  //   // console.log(i + 1)
-  //   results.push(item._id === item._id > 2)
-  // })
-  // console.log(results)
+  //   Calculate prices
+  const addDecimal = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2)
+  }
 
   return (
     <>
@@ -41,90 +33,103 @@ const OrderSummaryScreen = ({ cartItems }) => {
         <span className='fw-bolder fs-6'> Summary</span>
       </div>
       <hr className='text-light' />
-
-      <ul className='list-group list-group-flush mx-0 px-0 text-light'>
-        <div className='cart-body p-3' ref={componentRef}>
-          <div className='cart-text'>
-            <div className='brand text-center '>
-              <img
-                src={logo}
-                alt='logo'
-                className='img-fluid'
-                style={{ width: '35px' }}
-              />
-              <p>
-                <span
-                  className='fw-bold text-center'
-                  style={{ letterSpacing: '5px' }}
-                >
-                  BRAND
-                </span>
-                <br />
-                <span>KM4, Mogadishu - Somalia</span> <br />
-                <span>EVC - 615 30 15 07</span>
+      {cartItems.length > 0 && (
+        <ul className='list-group list-group-flush mx-0 px-0 text-light'>
+          <div className='cart-body p-3' ref={componentRef}>
+            <div className='cart-text'>
+              <div className='brand text-center '>
+                <img
+                  src={logo}
+                  alt='logo'
+                  className='img-fluid'
+                  style={{ width: '35px' }}
+                />
+                <p>
+                  <span
+                    className='fw-bold text-center'
+                    style={{ letterSpacing: '5px' }}
+                  >
+                    BRAND
+                  </span>
+                  <br />
+                  <span>KM4, Mogadishu - Somalia</span> <br />
+                  <span>EVC - 615 30 15 07</span>
+                </p>
+              </div>
+              <p className='text-center '>
+                <span className='fw-bold'>Invoice#:</span> 8888cc6 <br />
+                <span className='fw-bold'>Date:</span> 28-Jan, 20:05:00 <br />
+                <span className='fw-bold'>Cashier:</span> John Doe
               </p>
-            </div>
-            <p className='text-center '>
-              <span className='fw-bold'>Invoice#:</span> 8888cc6 <br />
-              <span className='fw-bold'>Date:</span> 28-Jan, 20:05:00 <br />
-              <span className='fw-bold'>Cashier:</span> John Doe
-            </p>
 
-            <div className='table-responsive ' style={{ fontSize: '0.7rem' }}>
-              <table className='table table-sm hover borderless striped text-primary'>
-                <thead>
-                  <tr>
-                    <th style={{ fontSize: '0.7rem' }}>ITEM</th>
-                    <th style={{ fontSize: '0.7rem' }}>QTY</th>
-                    <th style={{ fontSize: '0.7rem' }}>PRICE</th>
-                    <th style={{ fontSize: '0.7rem' }}>AMOUNT</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Ice Tea</td>
-                    <td>1</td>
-                    <td>$2.5</td>
-                    <td>$2.5</td>
-                  </tr>
-                  <tr>
-                    <td>Burger</td>
-                    <td>2</td>
-                    <td>$3</td>
-                    <td>$6</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan='2'></td>
-                    <td className='fw-bold'>Total:</td>
-                    <td>$8.5</td>
-                  </tr>
-                </tfoot>
-              </table>
-              <p className='text-center'>
-                <span>Ku bixi EVC, *789*808080*8.5#</span> <br />
-                <span>Mahadsnaid, soo dhawoow markale</span>
-              </p>
+              <div className='table-responsive ' style={{ fontSize: '0.7rem' }}>
+                <table className='table table-sm hover borderless striped text-primary'>
+                  <thead>
+                    <tr>
+                      <th style={{ fontSize: '0.7rem' }}>ITEM</th>
+                      <th style={{ fontSize: '0.7rem' }}>QTY</th>
+                      <th style={{ fontSize: '0.7rem' }}>PRICE</th>
+                      <th style={{ fontSize: '0.7rem' }}>AMOUNT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cartItems.map((item) => (
+                      <tr key={item._id}>
+                        <td>{item.name}</td>
+                        <td>{item.qty}</td>
+                        <td>${addDecimal(item.price)}</td>
+                        <td>${addDecimal(item.price * item.qty)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colSpan='2'></td>
+                      <td className='fw-bold'>Total:</td>
+                      <td>
+                        $
+                        {addDecimal(
+                          cartItems.reduce(
+                            (acc, item) => acc + item.qty * item.price,
+                            0
+                          )
+                        )}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <p className='text-center'>
+                  <span>Ku bixi EVC, *789*808080*8.5#</span> <br />
+                  <span>Mahadsnaid, soo dhawoow markale</span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </ul>
+        </ul>
+      )}
 
-      <div className='btn-group d-flex'>
-        <button
-          className='btn btn-light btn-sm form-control mx-1 rounded-pill'
-          disabled
-        >
-          <FaCheckCircle /> Checkout
-        </button>
-        <button
-          onClick={handlePrint}
-          className='btn btn-success btn-sm form-control mx-1 rounded-pill'
-        >
-          <FaPrint /> Print
-        </button>
-      </div>
+      {cartItems.length > 0 ? (
+        <div className='btn-group d-flex'>
+          <button
+            onClick={(e) => handleSubmit(e)}
+            className='btn btn-light btn-sm form-control mx-1 rounded-pill'
+          >
+            <FaCheckCircle /> Checkout
+          </button>
+
+          <button
+            onClick={handlePrint}
+            className='btn btn-success btn-sm form-control mx-1 rounded-pill'
+          >
+            <FaPrint /> Print
+          </button>
+        </div>
+      ) : (
+        <div className='text-center text-light mt-5'>
+          <span className='spinner-grow '></span> <br />
+          <span>There's no pending orders!</span>
+        </div>
+      )}
     </>
   )
 }
