@@ -8,19 +8,32 @@ import {
 import logo from '../images/burger.svg'
 import { useReactToPrint } from 'react-to-print'
 
-const OrderSummaryScreen = () => {
+const OrderSummaryScreen = ({ cartItems }) => {
   const componentRef = useRef()
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: 'Burger Brand',
   })
 
+  // console.log(cartItems)
+  // const prod = []
+  // const items = cartItems && cartItems.filter((item) => prod.push(item._id))
+  // console.log(prod)
+
+  // let results = []
+
+  // items.forEach((item, i) => {
+  //   // console.log(i + 1)
+  //   results.push(item._id === item._id > 2)
+  // })
+  // console.log(results)
+
   return (
     <>
       <button className='btn btn-light btn-sm rounded-pill float-right'>
         <FaCartPlus style={{ color: '#f46c2d', fontSize: 15 }} />{' '}
         <span className='fs-6' style={{ color: '#f46c2d' }}>
-          4
+          {cartItems ? cartItems.length : 0}
         </span>
       </button>
       <div className='summary text-light'>

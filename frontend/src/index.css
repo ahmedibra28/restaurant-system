@@ -46,7 +46,7 @@ body,
 }
 .icon-card:hover {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 .focus-box {
   border: 1px solid #f46c2d;

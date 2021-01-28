@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { addToCart, removeFromCart } from '../actions/productActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProduct } from '../actions/productActions'
@@ -9,9 +10,13 @@ import OrderSummaryScreen from './OrderSummaryScreen'
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('')
+  const [qty, setQty] = useState(0)
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
   const { products, error, loading } = productList
+
+  const cart = useSelector((state) => state.cart)
+  const { cartItems } = cart
 
   useEffect(() => {
     dispatch(listProduct())
@@ -19,27 +24,18 @@ const HomeScreen = () => {
 
   const [category, setCategory] = useState('Break Fast')
 
-  const [product, setProduct] = useState([])
-
   const productFiltered =
     products &&
     products.filter((prod) =>
       prod.name.toLowerCase().includes(search.toLowerCase())
     )
 
-  let productsData = []
+  const addToCartHandler = (product) => {
+    dispatch(addToCart(product))
+  }
 
-  const handleChange = (product) => {
-    productsData.push(product)
-
-    // const existItem = productArray.find((x) => x._id === product._id)
-
-    // console.log(existItem)
-    // console.log(productArray && productArray)
-
-    console.log(productsData)
-
-    // localStorage.setItem('products')
+  const removeFromCurrentHandler = (product) => {
+    dispatch(removeFromCart(product))
   }
 
   return (
@@ -77,14 +73,16 @@ const HomeScreen = () => {
               />
               <hr />
               <FastFoodScreen
-                handleChange={handleChange}
+                addToCartHandler={addToCartHandler}
+                removeFromCurrentHandler={removeFromCurrentHandler}
                 category={category}
-                setProduct={setProduct}
                 products={productFiltered}
+                qty={qty}
+                setQty={setQty}
               />
             </div>
             <div className='col-md-4 bg-dark py-3 '>
-              <OrderSummaryScreen />
+              <OrderSummaryScreen cartItems={cartItems && cartItems} />
             </div>
           </div>
         </>

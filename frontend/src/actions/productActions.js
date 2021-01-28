@@ -140,37 +140,19 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 }
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const {
-    userLogin: { userInfo },
-  } = getState()
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userInfo.token}`,
-    },
-  }
-  const { data } = await axios.get(`/api/products/${id}`, config)
-
+export const addToCart = (product) => async (dispatch, getState) => {
   dispatch({
     type: CART_ADD_ITEM,
-    payload: {
-      product: data._id,
-      name: data.name,
-      costPrice: data.costPrice,
-      price: data.price,
-      countInStock: data.countInStock,
-      qty,
-    },
+    payload: product,
   })
 
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
-export const removeFromCart = (id) => (dispatch, getState) => {
+export const removeFromCart = (product) => (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
-    payload: id,
+    payload: product._id,
   })
 
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))

@@ -1,39 +1,12 @@
-import { FaMinus, FaPlus } from 'react-icons/fa'
-import hotDrink from '../images/hotDrink.svg'
-import coldDrink from '../images/coldDrink.svg'
-import breakFast from '../images/breakFast.svg'
-import dinner from '../images/dinner.svg'
+import React from 'react'
 
-const FastFoodScreen = ({
-  products,
-  category,
-  addToCartHandler,
-  removeFromCurrentHandler,
-  qty,
-  setQty,
-}) => {
-  const filteredProducts =
-    products && products.filter((product) => product.category === category)
-
+const FoodScreen = () => {
   return (
     <div className='row gy-2'>
       {filteredProducts &&
-        filteredProducts.map((product, index) => (
+        filteredProducts.map((product) => (
           <div key={product._id} className='col-lg-3 col-md-4 col-sm-6 col-12'>
             <div className='card icon-card'>
-              <img
-                src={
-                  product.category === 'Break Fast'
-                    ? breakFast
-                    : product.category === 'Dinner'
-                    ? dinner
-                    : product.category === 'Hot Drinks'
-                    ? hotDrink
-                    : product.category === 'Cold Drinks' && coldDrink
-                }
-                alt={product.product}
-                className='img-fluid w-50 mx-auto pt-1'
-              />
               <div className='card-body'>
                 <div className='card-title text-center'>{product.name}</div>
                 <div className='card-text text-center'>
@@ -44,6 +17,22 @@ const FastFoodScreen = ({
                     >
                       ${product.price}
                     </span>
+
+                    <select
+                      className='btn border-1 border-success btn-sm shadow-none mx-1'
+                      name='qty'
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    >
+                      <option value='0' disabled='disabled'>
+                        QTY
+                      </option>
+                      {[...Array(10).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </select>
 
                     <FaMinus
                       className='bg-dark p-2 text-light fs-3 rounded-pill mx-1'
@@ -65,4 +54,4 @@ const FastFoodScreen = ({
   )
 }
 
-export default FastFoodScreen
+export default FoodScreen
