@@ -8,10 +8,10 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload
-      const existItem = state.cartItems.find((x) => x._id === item._id)
+      const existItem = state.cartItems.find((x) => x.product === item._id)
       if (existItem) {
         const carts = []
-        carts.push(state.cartItems.filter((x) => x._id === item._id))
+        carts.push(state.cartItems.filter((x) => x.product === item._id))
         const newUpdateItem = {
           category: existItem.category,
           createdAt: existItem.createdAt,
@@ -20,12 +20,12 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           updatedAt: existItem.updatedAt,
           user: existItem.user,
           qty: existItem.qty + 1,
-          _id: existItem._id,
+          product: existItem.product,
         }
         return {
           ...state,
           cartItems: state.cartItems.map((x) =>
-            x._id === existItem._id ? newUpdateItem : x
+            x.product === existItem.product ? newUpdateItem : x
           ),
         }
       } else {
@@ -37,7 +37,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           updatedAt: item.updatedAt,
           user: item.user,
           qty: 1,
-          _id: item._id,
+          product: item._id,
         }
 
         return {
@@ -48,7 +48,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter((x) => x._id !== action.payload),
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       }
     case CART_REMOVE_ALL_ITEMS:
       return {

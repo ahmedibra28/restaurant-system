@@ -1,11 +1,5 @@
 import { useRef } from 'react'
-import {
-  FaCartArrowDown,
-  FaCartPlus,
-  FaCheckCircle,
-  FaPrint,
-  FaTimes,
-} from 'react-icons/fa'
+import { FaCartPlus, FaCheckCircle, FaPrint, FaTimes } from 'react-icons/fa'
 import logo from '../images/burger.svg'
 import { useReactToPrint } from 'react-to-print'
 
@@ -13,11 +7,13 @@ const OrderSummaryScreen = ({
   cartItems,
   handleSubmit,
   handleStorageClear,
+  userInfo,
 }) => {
   const componentRef = useRef()
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: 'Burger Brand',
+    documentTitle: 'The Kings Coffee House',
+    pageStyle: `size: 302.36px 188.98px`,
   })
 
   //   Calculate prices
@@ -28,8 +24,8 @@ const OrderSummaryScreen = ({
   return (
     <>
       <button className='btn btn-light btn-sm rounded-pill float-right'>
-        <FaCartPlus style={{ color: '#f46c2d', fontSize: 15 }} />{' '}
-        <span className='fs-6' style={{ color: '#f46c2d' }}>
+        <FaCartPlus style={{ fontSize: 15 }} className='custom-color' />{' '}
+        <span className='fs-6' className='custom-color'>
           {cartItems ? cartItems.length : 0}
         </span>
       </button>
@@ -40,7 +36,7 @@ const OrderSummaryScreen = ({
       <hr className='text-light' />
       {cartItems.length > 0 && (
         <ul className='list-group list-group-flush mx-0 px-0 text-light'>
-          <div className='cart-body p-3' ref={componentRef}>
+          <div className='cart-body p-3 print-page' ref={componentRef}>
             <div className='cart-text'>
               <div className='brand text-center '>
                 <img
@@ -52,19 +48,20 @@ const OrderSummaryScreen = ({
                 <p>
                   <span
                     className='fw-bold text-center'
-                    style={{ letterSpacing: '5px' }}
+                    style={{ letterSpacing: '3px' }}
                   >
-                    BRAND
+                    THE KINGS COFFEE HOUSE
                   </span>
                   <br />
-                  <span>KM4, Mogadishu - Somalia</span> <br />
-                  <span>EVC - 615 30 15 07</span>
+                  <span>Makkah Almukarramah Ave</span> <br />
+                  <span>EVC - 611 24 21 99</span>
                 </p>
               </div>
               <p className='text-center '>
-                <span className='fw-bold'>Invoice#:</span> 8888cc6 <br />
+                <span className='fw-bold'>Invoice#:</span> {Date.now()} <br />
                 <span className='fw-bold'>Date:</span> 28-Jan, 20:05:00 <br />
-                <span className='fw-bold'>Cashier:</span> John Doe
+                <span className='fw-bold'>Cashier:</span>{' '}
+                {userInfo && userInfo.name}
               </p>
 
               <div className='table-responsive ' style={{ fontSize: '0.7rem' }}>
@@ -79,7 +76,7 @@ const OrderSummaryScreen = ({
                   </thead>
                   <tbody>
                     {cartItems.map((item) => (
-                      <tr key={item._id}>
+                      <tr key={item.product}>
                         <td>{item.name}</td>
                         <td>{item.qty}</td>
                         <td>${addDecimal(item.price)}</td>
@@ -104,7 +101,11 @@ const OrderSummaryScreen = ({
                   </tfoot>
                 </table>
                 <p className='text-center'>
-                  <span>Ku bixi EVC, *789*808080*8.5#</span> <br />
+                  <span>{`Ku bixi EVC, *712*611242199*${cartItems.reduce(
+                    (acc, item) => acc + item.qty * item.price,
+                    0
+                  )}#`}</span>
+                  <br />
                   <span>Mahadsnaid, soo dhawoow markale</span>
                 </p>
               </div>

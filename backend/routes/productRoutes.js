@@ -9,7 +9,7 @@ import {
 } from '../controllers/productController.js'
 const router = express.Router()
 
-router.route('/').get(getProducts).post(protect, admin, createProduct)
+router.route('/').get(protect, getProducts).post(protect, admin, createProduct)
 router
   .route('/:id')
   .delete(protect, admin, deleteProduct)

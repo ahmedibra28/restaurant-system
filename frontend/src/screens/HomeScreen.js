@@ -5,6 +5,7 @@ import {
   removeFromCart,
   removeAllFromCart,
 } from '../actions/productActions'
+import { createOrder } from '../actions/orderActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProduct } from '../actions/productActions'
@@ -21,6 +22,9 @@ const HomeScreen = () => {
 
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   useEffect(() => {
     dispatch(listProduct())
@@ -52,10 +56,12 @@ const HomeScreen = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({
-      totalPrice,
-      orderItems: cartItems,
-    })
+    dispatch(
+      createOrder({
+        totalPrice,
+        orderItems: cartItems,
+      })
+    )
   }
 
   return (
@@ -107,6 +113,7 @@ const HomeScreen = () => {
                 cartItems={cartItems && cartItems}
                 handleSubmit={handleSubmit}
                 handleStorageClear={handleStorageClear}
+                userInfo={userInfo}
               />
             </div>
           </div>

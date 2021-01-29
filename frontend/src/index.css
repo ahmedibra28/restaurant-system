@@ -54,3 +54,10 @@ body,
 .focus-color {
   color: #f46c2d;
 }
+.custom-color {
+  color: #f46c2d;
+}
+
+.print-page {
+  width: 302.36px 188.98px !important;
+}

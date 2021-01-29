@@ -8,7 +8,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
 import productRoutes from './routes/productRoutes.js'
-// import orderRoutes from './routes/orderRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 dotenv.config()
 
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 app.use(fileUpload())
 
-// app.use('/api/orders', orderRoutes)
+app.use('/api/orders', orderRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 

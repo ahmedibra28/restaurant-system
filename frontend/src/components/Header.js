@@ -99,7 +99,7 @@ const Header = () => {
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container'>
         <Link className='navbar-brand' to='/'>
-          Navbar
+          The Kings Coffee House
         </Link>
         <button
           className='navbar-toggler'

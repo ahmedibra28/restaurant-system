@@ -39,19 +39,16 @@ const FastFoodScreen = ({
                 <div className='card-title text-center'>{product.name}</div>
                 <div className='card-text text-center'>
                   <div className='btn-group'>
-                    <span
-                      className='p-1  rounded-pill shadow-none'
-                      style={{ color: '#f46c2d' }}
-                    >
+                    <span className='p-1  rounded-pill shadow-none custom-color'>
                       ${product.price}
                     </span>
 
                     {cartItems &&
                       cartItems.map(
                         (item) =>
-                          item._id === product._id && (
+                          item.product === product._id && (
                             <FaMinus
-                              key={item._id}
+                              key={item.product}
                               className='bg-dark p-2 text-light fs-3 rounded-pill mx-1'
                               style={{ cursor: 'pointer' }}
                               onClick={() => removeFromCurrentHandler(product)}

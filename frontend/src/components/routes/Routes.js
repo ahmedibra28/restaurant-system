@@ -12,6 +12,7 @@ import PrivateRoute from '../routes/PrivateRoute'
 import AdminPrivateRoute from '../routes/AdminPrivateRoute'
 import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
 import ProductScreen from '../../screens/ProductScreen'
+import OrderScreen from '../../screens/OrderScreen'
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
           component={UserLogHistoryScreen}
         />
         <AdminPrivateRoute path='/admin/product' component={ProductScreen} />
+        <AdminPrivateRoute path='/admin/order' component={OrderScreen} />
 
         <Route path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
@@ -36,7 +38,7 @@ const Routes = () => {
           component={UserListScreen}
         />
 
-        <Route exact path='/' component={HomeScreen} />
+        <PrivateRoute exact path='/' component={HomeScreen} />
         <Route component={NotFound} />
       </Switch>
     </section>
