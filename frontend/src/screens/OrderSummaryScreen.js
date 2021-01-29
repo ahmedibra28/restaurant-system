@@ -4,11 +4,16 @@ import {
   FaCartPlus,
   FaCheckCircle,
   FaPrint,
+  FaTimes,
 } from 'react-icons/fa'
 import logo from '../images/burger.svg'
 import { useReactToPrint } from 'react-to-print'
 
-const OrderSummaryScreen = ({ cartItems, handleSubmit }) => {
+const OrderSummaryScreen = ({
+  cartItems,
+  handleSubmit,
+  handleStorageClear,
+}) => {
   const componentRef = useRef()
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -115,6 +120,13 @@ const OrderSummaryScreen = ({ cartItems, handleSubmit }) => {
             className='btn btn-light btn-sm form-control mx-1 rounded-pill'
           >
             <FaCheckCircle /> Checkout
+          </button>
+
+          <button
+            onClick={handleStorageClear}
+            className='btn btn-dark btn-sm form-control mx-1 rounded-pill'
+          >
+            <FaTimes /> Clear
           </button>
 
           <button

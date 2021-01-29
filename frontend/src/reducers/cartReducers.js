@@ -1,4 +1,8 @@
-import { CART_REMOVE_ITEM, CART_ADD_ITEM } from '../constants/cartConstants'
+import {
+  CART_REMOVE_ITEM,
+  CART_ADD_ITEM,
+  CART_REMOVE_ALL_ITEMS,
+} from '../constants/cartConstants'
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -18,8 +22,6 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           qty: existItem.qty + 1,
           _id: existItem._id,
         }
-        console.log(newUpdateItem)
-
         return {
           ...state,
           cartItems: state.cartItems.map((x) =>
@@ -47,6 +49,11 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return {
         ...state,
         cartItems: state.cartItems.filter((x) => x._id !== action.payload),
+      }
+    case CART_REMOVE_ALL_ITEMS:
+      return {
+        ...state,
+        cartItems: [],
       }
 
     default:

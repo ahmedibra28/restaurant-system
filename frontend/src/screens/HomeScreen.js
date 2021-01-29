@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, removeFromCart } from '../actions/productActions'
+import {
+  addToCart,
+  removeFromCart,
+  removeAllFromCart,
+} from '../actions/productActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProduct } from '../actions/productActions'
@@ -38,9 +42,20 @@ const HomeScreen = () => {
     dispatch(removeFromCart(product))
   }
 
+  const handleStorageClear = () => {
+    dispatch(removeAllFromCart())
+  }
+
+  const totalPrice = cartItems
+    .reduce((acc, item) => acc + item.qty * item.price, 0)
+    .toFixed(2)
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(cartItems)
+    console.log({
+      totalPrice,
+      orderItems: cartItems,
+    })
   }
 
   return (
@@ -91,6 +106,7 @@ const HomeScreen = () => {
               <OrderSummaryScreen
                 cartItems={cartItems && cartItems}
                 handleSubmit={handleSubmit}
+                handleStorageClear={handleStorageClear}
               />
             </div>
           </div>

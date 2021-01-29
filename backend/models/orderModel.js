@@ -14,12 +14,16 @@ const orderScheme = mongoose.Schema(
     },
     orderItems: [
       {
-        product: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           ref: 'Product',
         },
         name: {
+          type: String,
+          required: true,
+        },
+        category: {
           type: String,
           required: true,
         },
