@@ -2,12 +2,17 @@ import { useRef } from 'react'
 import { FaCartPlus, FaCheckCircle, FaPrint, FaTimes } from 'react-icons/fa'
 import logo from '../images/burger.svg'
 import { useReactToPrint } from 'react-to-print'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
 
 const OrderSummaryScreen = ({
   cartItems,
   handleSubmit,
   handleStorageClear,
   userInfo,
+  success,
+  loading,
+  error,
 }) => {
   const componentRef = useRef()
   const handlePrint = useReactToPrint({
@@ -34,6 +39,14 @@ const OrderSummaryScreen = ({
         <span className='fw-bolder fs-6'> Summary</span>
       </div>
       <hr className='text-light' />
+      {success && (
+        <Message variant='success'>Order Created Successfully</Message>
+      )}
+      {loading ? (
+        <Loader />
+      ) : (
+        error && <Message variant='danger'>{error}</Message>
+      )}
       {cartItems.length > 0 && (
         <ul className='list-group list-group-flush mx-0 px-0 text-light'>
           <div className='cart-body p-3 print-page' ref={componentRef}>

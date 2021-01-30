@@ -13,6 +13,7 @@ import AdminPrivateRoute from '../routes/AdminPrivateRoute'
 import UserLogHistoryScreen from '../../screens/LogHistoryScreen'
 import ProductScreen from '../../screens/ProductScreen'
 import OrderScreen from '../../screens/OrderScreen'
+import ReportScreen from '../../screens/ReportScreen'
 
 const Routes = () => {
   return (
@@ -28,6 +29,7 @@ const Routes = () => {
 
         <Route path='/register' component={RegisterScreen} />
         <PrivateRoute path='/profile' component={ProfileScreen} />
+        <AdminPrivateRoute path='/admin/report' component={ReportScreen} />
         <AdminPrivateRoute
           exact
           path='/admin/users'

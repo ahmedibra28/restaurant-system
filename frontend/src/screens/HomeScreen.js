@@ -20,6 +20,9 @@ const HomeScreen = () => {
   const productList = useSelector((state) => state.productList)
   const { products, error, loading } = productList
 
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { success, loading: orderLoading, error: orderError } = orderCreate
+
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
@@ -114,6 +117,9 @@ const HomeScreen = () => {
                 handleSubmit={handleSubmit}
                 handleStorageClear={handleStorageClear}
                 userInfo={userInfo}
+                success={success}
+                error={orderError}
+                loading={orderLoading}
               />
             </div>
           </div>
