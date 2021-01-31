@@ -83,7 +83,7 @@ export const createProduct = (objData) => async (dispatch, getState) => {
   }
 }
 
-export const updateProduct = (objData) => async (dispatch, getState) => {
+export const updateProduct = (objData, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_UPDATE_REQUEST })
 
@@ -98,7 +98,7 @@ export const updateProduct = (objData) => async (dispatch, getState) => {
       },
     }
 
-    await axios.put(`/api/products/${objData.id}`, objData, config)
+    await axios.put(`/api/products/${id}`, objData, config)
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,

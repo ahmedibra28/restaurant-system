@@ -19,6 +19,8 @@ const ProductScreen = () => {
   const [name, setName] = useState('')
   const [category, setCategory] = useState('')
   const [price, setPrice] = useState('')
+  const [image, setImage] = useState('')
+
   const [search, setSearch] = useState('')
 
   const dispatch = useDispatch()
@@ -53,6 +55,7 @@ const ProductScreen = () => {
     setName('')
     setCategory('')
     setPrice('')
+    setImage('')
     setEdit(false)
   }
 
@@ -71,22 +74,33 @@ const ProductScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault()
 
+    // edit
+    //   ? dispatch(
+    //       updateProduct({
+    //         id,
+    //         name,
+    //         category,
+    //         price,
+    //       })
+    //     )
+    //   : dispatch(
+    //       createProduct({
+    //         name,
+    //         category,
+    //         price,
+    //       })
+    //     )
+
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('category', category)
+    formData.append('image', image)
+    formData.append('price', price)
+    // formData.append('_id', id)
+
     edit
-      ? dispatch(
-          updateProduct({
-            id,
-            name,
-            category,
-            price,
-          })
-        )
-      : dispatch(
-          createProduct({
-            name,
-            category,
-            price,
-          })
-        )
+      ? dispatch(updateProduct(formData, id))
+      : dispatch(createProduct(formData))
   }
 
   const editHandler = (e) => {
@@ -209,6 +223,16 @@ const ProductScreen = () => {
                         value={price}
                         className='form-control '
                         placeholder='Enter product price'
+                      />
+                    </div>
+
+                    <div className='form-group'>
+                      <label htmlFor='file'>Image Upload </label>
+
+                      <input
+                        type='file'
+                        className='form-file-input form-control'
+                        onChange={(e) => setImage(e.target.files[0])}
                       />
                     </div>
 
