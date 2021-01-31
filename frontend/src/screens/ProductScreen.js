@@ -74,29 +74,11 @@ const ProductScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault()
 
-    // edit
-    //   ? dispatch(
-    //       updateProduct({
-    //         id,
-    //         name,
-    //         category,
-    //         price,
-    //       })
-    //     )
-    //   : dispatch(
-    //       createProduct({
-    //         name,
-    //         category,
-    //         price,
-    //       })
-    //     )
-
     const formData = new FormData()
     formData.append('name', name)
     formData.append('category', category)
     formData.append('image', image)
     formData.append('price', price)
-    // formData.append('_id', id)
 
     edit
       ? dispatch(updateProduct(formData, id))

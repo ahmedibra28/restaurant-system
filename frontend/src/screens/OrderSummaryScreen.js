@@ -4,6 +4,8 @@ import logo from '../images/burger.svg'
 import { useReactToPrint } from 'react-to-print'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Moment from 'react-moment'
+import moment from 'moment'
 
 const OrderSummaryScreen = ({
   cartItems,
@@ -30,7 +32,7 @@ const OrderSummaryScreen = ({
     <>
       <button className='btn btn-light btn-sm rounded-pill float-right'>
         <FaCartPlus style={{ fontSize: 15 }} className='custom-color' />{' '}
-        <span className='fs-6' className='custom-color'>
+        <span className='custom-color fs-6'>
           {cartItems ? cartItems.length : 0}
         </span>
       </button>
@@ -71,8 +73,14 @@ const OrderSummaryScreen = ({
                 </p>
               </div>
               <p className='text-center '>
-                <span className='fw-bold'>Invoice#:</span> {Date.now()} <br />
-                <span className='fw-bold'>Date:</span> 28-Jan, 20:05:00 <br />
+                <span className='fw-bold'>Invoice#:</span>
+                {Date.now()}
+                <br />
+                <span className='fw-bold'>Date:</span>{' '}
+                <Moment format='YYYY-MM-DD HH:mm:ss'>
+                  {moment(Date.now())}
+                </Moment>{' '}
+                <br />
                 <span className='fw-bold'>Cashier:</span>{' '}
                 {userInfo && userInfo.name}
               </p>
