@@ -20,7 +20,6 @@ const FastFoodScreen = ({
         filteredProducts.map((product, index) => (
           <div key={product._id} className='col-lg-3 col-md-4 col-sm-6 col-12'>
             <div className='card icon-card'>
-              {product.image && product.image.imageName}
               <img
                 src={
                   product.image
