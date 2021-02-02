@@ -42,12 +42,19 @@ export const createProduct = asyncHandler(async (req, res) => {
   const user = req.user.id
   const image = req.files && req.files.image
 
-  const imageExt = image && image.name.slice(-4)
-  const imageName =
-    image && `${image.name.slice(0, -4)}-${Date.now()}${imageExt}`
-  const imagePath = image && `/uploads/${imageName}`
+  const imageFullName = image && image.name.split('.').shift()
+  const imageExtension = image && image.name.split('.').pop()
+  const imageName = image && `${imageFullName}-${Date.now()}.${imageExtension}`
+  const imagePath = `/uploads/${imageName}`
 
-  const allowedImageExt = ['jpeg', 'jpg', 'png', 'svg']
+  const allowedExtensions = /(\.jpeg|\.jpg|\.png|\.gif|\.svg)$/i
+
+  if (image) {
+    if (!allowedExtensions.exec(image && imageName)) {
+      res.status(400)
+      throw new Error('Invalid image type')
+    }
+  }
 
   image &&
     image.mv(path.join(__dirname, imagePath), (err) => {
@@ -79,12 +86,19 @@ export const updateProduct = asyncHandler(async (req, res) => {
   const user = req.user.id
   const image = req.files && req.files.image
 
-  const imageExt = image && image.name.slice(-4)
-  const imageName =
-    image && `${image.name.slice(0, -4)}-${Date.now()}${imageExt}`
-  const imagePath = image && `/uploads/${imageName}`
+  const imageFullName = image && image.name.split('.').shift()
+  const imageExtension = image && image.name.split('.').pop()
+  const imageName = image && `${imageFullName}-${Date.now()}.${imageExtension}`
+  const imagePath = `/uploads/${imageName}`
 
-  const allowedImageExt = ['jpeg', 'jpg', 'png', 'svg']
+  const allowedExtensions = /(\.jpeg|\.jpg|\.png|\.gif|\.svg)$/i
+
+  if (image) {
+    if (!allowedExtensions.exec(image && imageName)) {
+      res.status(400)
+      throw new Error('Invalid image type')
+    }
+  }
 
   const product = await ProductModel.findById(req.params.id)
 
