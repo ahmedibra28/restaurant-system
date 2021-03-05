@@ -28,6 +28,24 @@ const OrderSummaryScreen = ({
     return (Math.round(num * 100) / 100).toFixed(2)
   }
 
+  const evcFormat = () => {
+    const evcPrice = cartItems.reduce(
+      (acc, item) => acc + item.qty * item.price,
+      0
+    )
+    if (evcPrice < 1) {
+      const removedPoint = evcPrice.toString().replace(/[.]/g, '')
+      return `Ku bixi EVC, *712*611242199*${removedPoint}#`
+    }
+    if (evcPrice % 1 === 0) {
+      return `Ku bixi EVC, *712*611242199*${evcPrice}#`
+    }
+    if (evcPrice % 1 !== 0) {
+      const removedPointGtOne = evcPrice.toString().split('.')
+      return `Ku bixi EVC, *712*611242199*${removedPointGtOne[0]}*${removedPointGtOne[1]}#`
+    }
+  }
+
   return (
     <>
       <button className='btn btn-light btn-sm rounded-pill float-right'>
@@ -122,10 +140,7 @@ const OrderSummaryScreen = ({
                   </tfoot>
                 </table>
                 <p className='text-center'>
-                  <span>{`Ku bixi EVC, *712*611242199*${cartItems.reduce(
-                    (acc, item) => acc + item.qty * item.price,
-                    0
-                  )}#`}</span>
+                  <span> {evcFormat()}</span>
                   <br />
                   <span>Mahadsnaid, soo dhawoow markale</span>
                 </p>

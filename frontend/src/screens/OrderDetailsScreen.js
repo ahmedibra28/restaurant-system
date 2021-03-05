@@ -8,6 +8,24 @@ const OrderDetailsScreen = ({
   Moment,
   userInfo,
 }) => {
+  const evcFormat = () => {
+    const evcPrice = orderDetails.orderItems.reduce(
+      (acc, item) => acc + item.qty * item.price,
+      0
+    )
+    if (evcPrice < 1) {
+      const removedPoint = evcPrice.toString().replace(/[.]/g, '')
+      return `Ku bixi EVC, *712*611242199*${removedPoint}#`
+    }
+    if (evcPrice % 1 === 0) {
+      return `Ku bixi EVC, *712*611242199*${evcPrice}#`
+    }
+    if (evcPrice % 1 !== 0) {
+      const removedPointGtOne = evcPrice.toString().split('.')
+      return `Ku bixi EVC, *712*611242199*${removedPointGtOne[0]}*${removedPointGtOne[1]}#`
+    }
+  }
+
   return (
     <ul className='list-group list-group-flush mx-0 px-0 text-primary'>
       <div className='cart-body p-3 print-page'>
@@ -79,10 +97,7 @@ const OrderDetailsScreen = ({
               </tfoot>
             </table>
             <p className='text-center'>
-              <span>{`Ku bixi EVC, *712*611242199*${orderDetails.orderItems.reduce(
-                (acc, item) => acc + item.qty * item.price,
-                0
-              )}#`}</span>
+              <span>{evcFormat()}</span>
               <br />
               <span>Mahadsnaid, soo dhawoow markale</span>
             </p>
